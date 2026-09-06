@@ -2,8 +2,8 @@ import express from "express";
 import { generators } from "openid-client";
 import { getNamoidClient, generatePkce } from "./namoidClient.js";
 import { createSessionCookie } from "./session.js";
-import {asyncWrapper} from "../utils/asyncWrapper.js";
-import {AppError} from "../utils/AppError.js";
+import asyncWrapper from "../utils/asyncWrapper.js";
+import AppError from "../utils/AppError.js";
 import logger from "../utils/logger.js";
 
 const router = express.Router();
