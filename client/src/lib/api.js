@@ -19,4 +19,14 @@ export const api = {
   patch: (path, body) => request(path, { method: "PATCH", body: JSON.stringify(body) }),
 };
 
+export async function getSession() {
+  try {
+    const res = await fetch(`${API_URL}/auth/me`, { credentials: "include" });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
 export const loginUrl = `${API_URL}/auth/login`; 

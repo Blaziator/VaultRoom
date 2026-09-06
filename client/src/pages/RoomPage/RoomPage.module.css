@@ -1,0 +1,51 @@
+.page{ 
+    max-width: 700px; 
+    margin: 0 auto; 
+    padding: 32px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 16px; 
+}
+
+.roleTag{ 
+    color: var(--color-muted); 
+    font-size: 14px; 
+    margin-top: -8px; 
+}
+
+.checklist{ 
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px; 
+}
+
+.centered{ 
+    display: grid; 
+    place-items: center; 
+    height: 60vh; 
+    text-align: center; 
+    gap: 16px; 
+}
+
+.primaryButton{ 
+    background: var(--color-accent); 
+    color: white; 
+    border: none; 
+    border-radius: 8px; 
+    padding: 10px 20px; 
+    cursor: pointer; 
+}
+
+.timelineSection{ 
+    border-top: 1px solid var(--color-border); 
+    padding-top: 16px; 
+}
+
+.toggle{ 
+    background: none; 
+    border: none; 
+    color: var(--color-accent); 
+    cursor: pointer; 
+    padding: 0; 
+    margin-bottom: 8px; 
+}

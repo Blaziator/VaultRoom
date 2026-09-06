@@ -1,0 +1,107 @@
+.card{ 
+    border: 1px solid var(--color-border); 
+    border-radius: 10px; 
+    padding: 16px; 
+    background: var(--color-surface); 
+    display: flex; 
+    flex-direction: column; 
+    gap: 8px; 
+}
+
+.header{ 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.label{ 
+    font-weight: 600; 
+}
+
+.required{ 
+    color: var(--color-accent); 
+    font-size: 12px; 
+}
+
+.optional{ 
+    color: var(--color-muted); 
+    font-size: 12px; 
+}
+
+.reason{ 
+    color: var(--color-muted); 
+    font-size: 14px; 
+    margin: 0;
+}
+
+.statusBadge{ 
+    align-self: flex-start; 
+    font-size: 12px; 
+    padding: 2px 10px; 
+    border-radius: 999px; 
+}
+
+.pending{ 
+    background: var(--color-bg); 
+    color: var(--color-muted); 
+}
+
+.verified{ 
+    background: var(--color-success-bg); 
+    color: var(--color-success); 
+}
+
+.expired{ 
+    background: var(--color-warning-bg); 
+    color: var(--color-warning); 
+}
+
+.revoked{ 
+    background: var(--color-error-bg); 
+    color: var(--color-error); 
+}
+
+.grantInfo{ 
+    display: flex; 
+    justify-content: space-between; 
+    font-family: var(--font-mono); 
+    font-size: 13px; 
+}
+
+.uploadForm, .actions{ 
+    display: flex; 
+    gap: 8px; 
+    align-items: center; 
+    flex-wrap: wrap; 
+}
+
+.primaryButton{ 
+    background: var(--color-accent); 
+    color: white; 
+    border: none; 
+    border-radius: 6px; 
+    padding: 6px 12px; 
+    cursor: pointer; 
+}
+
+.secondaryButton{ 
+    background: transparent; 
+    border: 1px solid var(--color-border); 
+    border-radius: 6px; 
+    padding: 6px 12px; 
+    cursor: pointer; 
+}
+
+.revokeButton{ 
+    align-self: flex-start;
+    background: none; 
+    border: none; 
+    color: var(--color-error); 
+    cursor: pointer; 
+    padding: 0; 
+}
+
+.error{ 
+    color: var(--color-error); 
+    font-size: 13px; 
+}
