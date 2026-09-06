@@ -10,6 +10,7 @@ import { loadRoom, requireRoomParticipant } from "../access-control/requireRoomA
 import asyncWrapper from "../utils/asyncWrapper.js";
 import AppError from "../utils/AppError.js";
 import { recordEvent } from "../utils/audit.js";
+import AuditEvent from "../models/AuditEvent.js";
 
 const router = express.Router();
 const CLAIM_WINDOW_HOURS = 72;
@@ -81,10 +82,27 @@ router.get("/:roomId",requireAuth,loadRoom,asyncWrapper(async (req, res) => {
 
     res.json({
         status: "active",
-        room: { id: room.publicId, title: room.title, claimed: !!room.ownerId },
+        room: {
+          id: room.publicId,
+          title: room.title,
+          claimed: !!room.ownerId,
+          isRequester: sub === room.requesterId,
+          isOwner: sub === room.ownerId,
+        },
         requests,
         grants,
     });
+  })
+);
+
+router.get("/:roomId/timeline",requireAuth,loadRoom,requireRoomParticipant,asyncWrapper(async (req, res) => {
+    const events = await AuditEvent.find({ roomId: req.room._id }).sort({ timestamp: 1 });
+    const timeline = events.map((e) => ({
+      type: e.type,
+      actor: e.actorId === req.user.sub ? "you" : "the other party",
+      timestamp: e.timestamp,
+    }));
+    res.json(timeline);
   })
 );
 
