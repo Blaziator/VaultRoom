@@ -1,0 +1,73 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(23, 32, 51, 0.4);
+  display: grid;
+  place-items: center;
+}
+
+.modal {
+  background: var(--color-surface);
+  border-radius: 12px;
+  padding: 24px;
+  width: 480px;
+  max-height: 85vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.categoryRow {
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.toggle { display: flex; align-items: center; gap: 6px; font-size: 14px; }
+
+.actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 8px; }
+
+.primaryButton {
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.secondaryButton {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.removeButton { color: var(--color-error); background: none; border: none; cursor: pointer; align-self: flex-start; }
+
+.codeBox {
+  font-family: var(--font-mono);
+  background: var(--color-accent-light);
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+.linkBox {
+  font-family: var(--font-mono);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 13px;
+  word-break: break-all;
+}
+
+.error { color: var(--color-error); font-size: 14px; }
