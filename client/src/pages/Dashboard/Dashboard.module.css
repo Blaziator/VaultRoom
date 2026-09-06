@@ -1,0 +1,27 @@
+.page { max-width: 800px; margin: 0 auto; padding: 32px; }
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+
+.primaryButton {
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.grid { display: grid; gap: 12px; margin-bottom: 32px; }
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--color-secondary-text);
+}
+
+.cardStatus { color: var(--color-muted); font-size: 14px; }
+.empty { color: var(--color-muted); }
