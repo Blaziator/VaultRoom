@@ -58,11 +58,15 @@ router.get("/:roomId/grants/:grantId",requireAuth,loadRoom,requireRoomParticipan
 
 router.get("/:roomId/grants/:grantId/download",requireAuth,loadRoom,requireRoomParticipant,loadValidGrant,asyncWrapper(async (req, res) => {
     const grantWithFile = await DocumentGrant.findById(req.grant._id).select("+fileBuffer");
+    const isInline = req.query.mode === "inline"; 
 
     await recordEvent({ roomId: req.room._id, type: "downloaded", actorId: req.user.sub });
 
     res.setHeader("Content-Type", grantWithFile.mimetype);
-    res.setHeader("Content-Disposition", `attachment; filename="${grantWithFile.filename}"`);
+    res.setHeader(
+      "Content-Disposition",
+      `${isInline ? "inline" : "attachment"}; filename="${grantWithFile.filename}"`
+    );
     res.send(grantWithFile.fileBuffer);
   })
 );

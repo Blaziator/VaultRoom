@@ -4,6 +4,7 @@ import { getNamoidClient, generatePkce } from "./namoidClient.js";
 import { createSessionCookie } from "./session.js";
 import asyncWrapper from "../utils/asyncWrapper.js";
 import AppError from "../utils/AppError.js";
+import { requireAuth } from "../auth/session.js";
 import logger from "../utils/logger.js";
 
 const router = express.Router();
@@ -59,5 +60,9 @@ router.post("/logout",asyncWrapper(async (req, res) => {
     res.json({ success: true });
   })
 );
+
+router.get("/me", requireAuth, (req, res) => {
+  res.json({ sub: req.user.sub, email: req.user.email });
+});
 
 export default router;
