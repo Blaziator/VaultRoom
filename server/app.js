@@ -30,7 +30,7 @@ app.get("/health", (req, res)=>{
 app.use("/auth", authRoutes);
 app.use("/api/rooms", roomRoutes);
 app.use("/api/rooms", accessCodeRoutes);
-app.use("/api/uploads", uploadRoutes);
+app.use("/api/rooms", uploadRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ error: "Not found" });
