@@ -1,0 +1,306 @@
+.wrapper {
+  position: relative;
+
+  min-height: 100vh;
+  width: 100%;
+
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: #ffffff;
+
+  color: #102044;
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+
+/* ================================
+   BACKGROUND
+================================ */
+
+.backgroundGlow {
+  position: absolute;
+
+  width: 650px;
+  height: 650px;
+
+  top: 110px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  border-radius: 50%;
+
+  background: rgba(224, 234, 255, 0.65);
+
+  filter: blur(90px);
+
+  pointer-events: none;
+}
+
+
+/* ================================
+   BRAND
+================================ */
+
+.brand {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 25px;
+
+  color: #102044;
+
+  font-size: 24px;
+  font-weight: 700;
+
+  letter-spacing: -0.8px;
+}
+
+.logo {
+    width: 34px; 
+    height: 52px; 
+    flex-shrink: 0; 
+    display: block;
+    transform: translateY(5px);
+
+    flex-shrink: 0;
+}
+
+
+/* ================================
+   HERO
+================================ */
+
+.hero {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+
+  margin-top: 139px;
+
+  text-align: center;
+}
+
+.hero h1 {
+  margin: 0;
+
+  color: #0e1e44;
+
+  font-size: clamp(58px, 6.1vw, 82px);
+  font-weight: 750;
+
+  line-height: 0.98;
+
+  letter-spacing: -4.5px;
+}
+
+.hero p {
+  margin: 31px 20px 0;
+
+  color: #52698f;
+
+  font-size: 22px;
+  font-weight: 450;
+
+  line-height: 1.5;
+
+  letter-spacing: -0.3px;
+}
+
+
+/* ================================
+   LOGIN BUTTON
+================================ */
+
+.loginLink {
+  display: block;
+
+  margin-top: 28px;
+
+  text-decoration: none;
+}
+
+.primaryButton {
+  width: 360px;
+  height: 70px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 14px;
+
+  border: none;
+  border-radius: 15px;
+
+  background: linear-gradient(
+    135deg,
+    #2877ef 0%,
+    #246de9 100%
+  );
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 20px;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 16px 30px rgba(38, 108, 232, 0.22),
+    0 5px 10px rgba(38, 108, 232, 0.1);
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.primaryButton:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 20px 35px rgba(38, 108, 232, 0.27),
+    0 7px 13px rgba(38, 108, 232, 0.12);
+}
+
+.primaryButton:active {
+  transform: translateY(0);
+}
+
+.fingerprint {
+    width: 35px;
+    height: 45px;
+    flex-shrink: 0; 
+    display: block;
+}
+
+
+/* ================================
+   TABLET
+================================ */
+
+@media (max-width: 900px) {
+  .hero {
+    margin-top: 125px;
+  }
+
+  .hero h1 {
+    font-size: clamp(50px, 7.5vw, 70px);
+  }
+
+  .hero p {
+    font-size: 20px;
+  }
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 600px) {
+  .brand {
+    margin-top: 24px;
+
+    font-size: 21px;
+  }
+
+  .logo {
+    width: 30px;
+    height: 37px;
+  }
+
+  .hero {
+    margin-top: 105px;
+
+    padding: 0 18px;
+  }
+
+  .hero h1 {
+    font-size: clamp(40px, 11vw, 58px);
+
+    line-height: 1;
+
+    letter-spacing: -2.8px;
+  }
+
+  .hero p {
+    margin-top: 24px;
+
+    font-size: 17px;
+
+    line-height: 1.45;
+  }
+
+  .desktopBreak {
+    display: none;
+  }
+
+  .loginLink {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+
+    margin-top: 27px;
+  }
+
+  .primaryButton {
+    width: min(100%, 360px);
+    height: 62px;
+
+    border-radius: 13px;
+
+    font-size: 17px;
+  }
+}
+
+
+/* ================================
+   SMALL PHONES
+================================ */
+
+@media (max-width: 400px) {
+  .hero {
+    margin-top: 85px;
+  }
+
+  .hero h1 {
+    font-size: 39px;
+  }
+
+  .hero p {
+    font-size: 15.5px;
+  }
+
+  .primaryButton {
+    height: 59px;
+
+    font-size: 16px;
+  }
+}

@@ -1,73 +1,178 @@
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(23, 32, 51, 0.4);
-  display: grid;
-  place-items: center;
+  background: rgba(23, 32, 51, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 100;
 }
 
 .modal {
   background: var(--color-surface);
   border-radius: 12px;
-  padding: 24px;
-  width: 480px;
-  max-height: 85vh;
+  padding: 32px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.categoryRow {
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  padding: 12px;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.toggle { display: flex; align-items: center; gap: 6px; font-size: 14px; }
+.modal h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: 8px;
+}
 
-.actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 8px; }
+.modal p {
+  color: var(--color-secondary-text);
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.modal label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-secondary-text);
+  margin-top: 8px;
+}
+
+.modal input[type="text"],
+.modal input:not([type="checkbox"]),
+.modal textarea {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-ink);
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  width: 100%;
+}
+
+.modal input:focus,
+.modal textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-light);
+}
+
+.modal textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.categoryRow {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-bg);
+}
+
+.categoryRow + .categoryRow {
+  margin-top: 12px;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-secondary-text);
+  cursor: pointer;
+}
+
+.toggle input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.removeButton {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: var(--color-error);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.removeButton:hover {
+  text-decoration: underline;
+}
+
+.primaryButton,
+.secondaryButton {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
 
 .primaryButton {
   background: var(--color-accent);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  cursor: pointer;
+  color: var(--color-surface);
+}
+
+.primaryButton:hover {
+  background: var(--color-ink-hover);
+}
+
+.primaryButton:disabled {
+  background: var(--color-border);
+  color: var(--color-muted);
+  cursor: not-allowed;
 }
 
 .secondaryButton {
-  background: transparent;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  padding: 10px 20px;
-  cursor: pointer;
+  background: var(--color-surface);
+  color: var(--color-secondary-text);
+  border-color: var(--color-border);
 }
 
-.removeButton { color: var(--color-error); background: none; border: none; cursor: pointer; align-self: flex-start; }
-
-.codeBox {
-  font-family: var(--font-mono);
-  background: var(--color-accent-light);
-  padding: 12px;
-  border-radius: 8px;
-  text-align: center;
-  font-size: 20px;
-  letter-spacing: 2px;
-}
-
-.linkBox {
-  font-family: var(--font-mono);
+.secondaryButton:hover {
   background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  padding: 8px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.error {
+  color: var(--color-error);
+  background: var(--color-error-bg);
+  padding: 10px 12px;
   border-radius: 8px;
   font-size: 13px;
-  word-break: break-all;
 }
 
-.error { color: var(--color-error); font-size: 14px; }
+.codeBox,
+.linkBox {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  color: var(--color-ink);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 12px;
+  word-break: break-all;
+}

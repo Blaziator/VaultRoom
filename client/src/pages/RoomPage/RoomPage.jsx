@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { api, loginUrl } from "../../lib/api";
+import logo from "../../assets/logo.svg"
 import AccessCodeForm from "../../components/AccessCodeForm/AccessCodeForm";
 import DocumentCategoryCard from "../../components/DocumentCategoryCard/DocumentCategoryCard";
 import ActivityTimeline from "../../components/ActivityTimeline/ActivityTimeline";
@@ -48,6 +49,13 @@ export default function RoomPage() {
 
   return (
     <div className={styles.page}>
+      <header className={styles.roomHeader}>
+        <Link to="/dashboard" className={styles.brand} aria-label="Go to VaultRoom dashboard">
+          <img src={logo} alt="VaultRoom" className={styles.logo}/>
+          <span className={styles.logoName}>VaultRoom</span>
+        </Link>
+      </header>
+
       <h1>{data.room.title}</h1>
       <p className={styles.roleTag}>{data.room.isOwner ? "You are the document owner" : "You requested these documents"}</p>
 

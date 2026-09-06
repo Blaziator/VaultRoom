@@ -1,0 +1,15 @@
+<svg
+  viewBox="0 0 64 76"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+>
+  <path
+    d="M32 3L55.5 16.5V44.5L44.8 50.7V22.7L32 15.3L19.2 22.7V50.7L8.5 44.5V16.5L32 3Z"
+    fill="#102044"
+  />
+  <path
+    d="M32 27L44.5 19.8V51.3L32 58.7V27Z"
+    fill="#1769E8"
+  />
+</svg>
