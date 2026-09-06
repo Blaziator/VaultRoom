@@ -13,35 +13,39 @@
 }
 
 :root {
-  --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "DM Mono", ui-monospace, "SF Mono", Consolas, monospace;
+  --font-body: 'Manrope', sans-serif;
+  --font-mono: 'DM Mono', monospace;
 
   --color-ink: #172033;
-  --color-ink-hover: #0f1728;
-  --color-accent: #356ae6;
-  --color-accent-light: #eaf0ff;
-  --color-background: #fafbfc;
-  --color-surface: #ffffff;
-  --color-border: #e5e9f0;
-  --color-text-muted: #667085;
-  --color-text-secondary: #344054;
+  --color-ink-hover: #0F1728;
+  --color-accent: #356AE6;
+  --color-accent-light: #EAF0FF;
+  --color-bg: #FAFBFC;
+  --color-surface: #FFFFFF;
+  --color-border: #E5E9F0;
+  --color-muted: #667085;
+  --color-secondary-text: #344054;
 
-  --color-success: #159a6b;
-  --color-success-bg: #e9f8f1;
-  --color-warning: #d98a16;
-  --color-warning-bg: #fff6e5;
-  --color-error: #d64545;
-  --color-error-bg: #fdecec;
-  --color-pending: var(--color-text-muted);
+  --color-success: #159A6B;
+  --color-success-bg: #E9F8F1;
+  --color-warning: #D98A16;
+  --color-warning-bg: #FFF6E5;
+  --color-error: #D64545;
+  --color-error-bg: #FDECEC;
 }
 
 body {
   font-family: var(--font-body);
-  color: var(--color-ink);
-  background: var(--color-background);
+  color: var(--color-secondary-text);
+  background: var(--color-bg);
 }
 
-.font-mono,
-code {
-  font-family: var(--font-mono);
+html, body, #root {
+  height: 100%;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
