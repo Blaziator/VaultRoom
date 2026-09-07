@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../lib/api";
 import CreateRoomModal from "../../components/CreateRoomModal/CreateRoomModal";
 import logo from "../../assets/logo.svg"
@@ -76,10 +76,14 @@ export default function Dashboard() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   const load = useCallback(() => {
-    api.get("/rooms").then(setData).catch((e) => setError(e.message));
-  }, []);
+    api.get("/rooms").catch(() => {
+      navigate("/", { replace: true }); 
+      return null;
+    }).then((result) => { if (result) setData(result); });
+  }, [navigate]);
 
   useEffect(load, [load]);
 
