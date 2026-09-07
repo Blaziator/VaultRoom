@@ -15,13 +15,20 @@ NamoID product, security recommendation, or endorsement.
 
 ## NamoID integration
 
-This project must use **NamoID Hosted Auth as the application's sign-in
-system**. Hosted Auth is the application's authentication system, not a
-social-login button.
+VaultRoom registers a **Web application (confidential client)** in a NamoID Test environment.
+Authentication uses the standard OIDC Authorization Code flow with PKCE: the React frontend starts
+the flow via a direct navigation to the Express backend's `/auth/login`, which redirects to
+NamoID's hosted sign-in page. NamoID redirects back to the registered callback,
+`/auth/callback`, on the Express server (not the frontend) — the backend exchanges the code,
+validates the signed ID token, and issues its own HttpOnly, `sameSite`/`secure`-aware session
+cookie to the browser. NamoID's own tokens never reach client-side JavaScript.
 
-Describe the application/client type, issuer/environment configuration,
-callback path, application session, and complete user journey. Do not commit
-credentials, authorization codes, or tokens.
+User journey: a requester signs in and creates a room with document categories and reasons. They
+share the room link plus a separately-generated access code with the document owner over their
+existing channel (e.g. WhatsApp). The owner signs in via the same NamoID flow — including signing
+up on the spot if they've never used the app before — then enters the access code to claim the
+room, after which they can upload mock documents with an expiry date. The requester can then view
+or download those documents until the owner revokes access or the expiry passes.
 
 ## Community project metadata
 
@@ -62,15 +69,21 @@ keep its branded footer and metadata when adapting it to another framework.
 
 ## What works
 
-Describe the required paths you completed.
+Full NamoID Hosted Auth integration (sign-in and sign-up); room creation with per-category document
+requests; access-code-based owner claiming with rate-limiting against guessing; file upload, inline
+view, download, and revocation; expiry enforcement on every access, not just at render time; a
+sanitized activity timeline; automated tests for unauthorized and expired/revoked access.
 
 ## Known limitations
 
-State what remains incomplete. Stopping at the challenge timebox is expected.
+Editing a room's request definition before it's claimed is supported by the backend but has no
+frontend form yet. Uploaded file MIME types are trusted as reported by the browser, not verified
+against actual file content. The OIDC login state is held in server memory, which is fine for a
+single instance but wouldn't scale horizontally without moving it to Redis or the database.
 
 ## AI and external resources
 
-List meaningful AI assistance, adapted code, tutorials, and libraries.
+Claude (Anthropic) was used throughout for architecture discussion and ChatGPT was used for CSS.
 
 ## NamoID attribution
 

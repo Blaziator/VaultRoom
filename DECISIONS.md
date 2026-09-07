@@ -1,19 +1,35 @@
 # Engineering decisions
 
 ## Scope
-Completed: NamoID Hosted Auth (OIDC, Authorization Code + PKCE) via a confidential Express backend-for-frontend, HttpOnly JWT session cookie, room creation with per-category document requests, access-code-based owner claiming (bcrypt-hashed, rate-limited), file upload/view/download stored as MongoDB Buffers, revocation, and a full audit timeline. Left out: production deployment (running locally/demo recording only, given the timebox), magic-byte file-type verification, and the "bulk collection across many owners" scenario the PS explicitly defers to future
-versions.
+
+Completed within the 6-hour timebox: full NamoID Hosted Auth integration (OIDC, Authorization Code + PKCE, server-side token exchange), room creation with per-category document requests, access-code-based owner claiming (not email-gating — chosen because the requester often doesn't
+know the owner's account email in advance), file upload/view/download/revoke, a sanitized audit timeline, and automated tests for unauthorized and expired/revoked access.
+
+Left out: a frontend UI for editing a room's request definition before it's claimed (the backend route exists and enforces the rule, but no form calls it), magic-byte file-type validation, and a dedicated bulk/multi-owner collection flow (explicitly out of scope — see "Where this could go
+next" in the problem statement itself).
 
 ## Architecture
-React (Vite) frontend + Express backend. The frontend only starts the NamoID redirect; Express is the confidential client that exchanges the authorization code, validates the ID token, and issues its own HttpOnly session cookie — the frontend never sees NamoID tokens directly. A room is strictly two-party: whoever creates it is the requester; whoever later submits the correct access code is
-bound as the owner. Every document category (DocumentRequest) can have one DocumentGrant, storing the file as a MongoDB Buffer with its own expiry and revocation timestamp, avoiding a filesystem/cloud-storage dependency for these mock files. Every state-changing action writes an AuditEvent, which both powers the UI timeline and is emitted through Winston for logging.
+
+Confidential backend-for-frontend pattern: React (Vite) frontend only starts the NamoID redirect; Express is the confidential OAuth client that exchanges the authorization code, validates the ID token server-side (via `openid-client`, since NamoID's flow is standard OIDC), and issues its own HttpOnly JWT session cookie. NamoID's own tokens never reach the browser.
+
+Data flow: Requester creates a Room (MongoDB) with a bcrypt-hashed access code and a short claim window. The room link + code are shared out-of-band (e.g. WhatsApp), mirroring the existing workflow this app replaces. Any authenticated NamoID user can open the link, but only the first
+person to submit the correct code is bound as the room's owner — permanently, and the code is spent on use. Every subsequent access check re-verifies session + room participancy + grant expiry/revocation on every request; nothing is cached as "already authorized."
+
+Document bytes are stored directly in MongoDB (`Buffer`, `select: false` by default) rather than external storage — files are small, fictional/mock documents, and this avoids a dependency on persistent disk, which Render's free tier doesn't guarantee across deploys.
 
 ## Security and privacy
-Secrets (NamoID Client Secret, session signing key, DB URI) live only in `.env`, gitignored; `.env.example` holds fake placeholders. Sessions are
-HttpOnly, signed JWTs — never exposed to client-side JS. The access code is bcrypt-hashed at rest, rate-limited (5 attempts/15 min) against guessing, and single-use once a room is claimed. Access control never relies on ID obscurity alone: every room/grant/file route re-checks session + room participancy + expiry + revocation on every request, regardless of whether the requester knows a valid-looking ID. Logs and audit events record only event type, room ID, and actor ID — never file bytes, filenames-as-secrets, or download URLs. Known gap: uploaded file `mimetype` is trusted as reported by the browser and served back verbatim on download without magic-byte verification — acceptable for mock demo files, not for production.
+
+Secrets (NamoID client secret, session signing key, Mongo URI) live only in environment variables, never committed. The session cookie is HttpOnly, `secure` and `sameSite: none` in production. Access codes are hashed with bcrypt, never stored or logged in plaintext, and the claim endpoint is rate-limited (5 attempts / 15 min) to resist brute-forcing the code. Room and grant IDs exposed in
+URLs are randomly generated UUIDs, not sequential Mongo IDs — though the actual enforcement is always the session + participant check, not ID secrecy. Denial responses (wrong code, no access) are deliberately generic and identical regardless of the real reason, to avoid confirming whether a room/code exists. Audit logs (Winston + a MongoDB `AuditEvent` collection) record event type, room, and actor only — never file contents, the access code, or a grant's download URL.
+
+Before production: validate uploaded file bytes against their declared MIME type (currently trusted as reported by the browser); move the in-memory OIDC `state`/PKCE verifier store to Redis or the database for multi-instance deployments; replace the frontend's error-message string
+matching for 401s with a proper status-code check.
 
 ## Testing
-Jest + Supertest against an in-memory MongoDB instance. Prioritized exactly what the PS calls out: unauthorized access (an authenticated user who isn't a room participant is blocked) and expired/revoked access (a genuine participant is still blocked once a grant expires or is revoked) — since these are the two edge cases most likely to be silently broken by a small logic slip, and are explicitly named as required in the submission checklist.
+
+Automated tests (Jest + Supertest + `mongodb-memory-server`) cover exactly what the challenge explicitly requires: unauthorized access (an authenticated user who isn't a room participant is blocked from viewing a valid grant) and expired/revoked access (a genuine participant is still
+blocked once a grant's expiry has passed or it's been revoked). These were prioritized over broader coverage because they directly validate the core security guarantee the entire problem statement is about — that a URL or a valid session alone is never sufficient for access.
 
 ## With another hour
-Deploy to Render (backend) and Vercel (frontend) with a separate Live NamoID application and its own registered callback URL; add magic-byte file-type validation on upload; surface the room-level claim-expiry countdown in the UI; add an end-to-end test covering the full claim → upload → revoke flow in one pass rather than isolated unit tests.
+
+Build the missing pre-claim room-edit UI, add magic-byte file validation on upload, and replace the generic frontend auth-error handling with explicit HTTP status checks instead of string matching.
