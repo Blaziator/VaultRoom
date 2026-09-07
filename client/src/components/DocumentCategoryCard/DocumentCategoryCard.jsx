@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { api } from "../../lib/api";
+import { API_URL } from "../../lib/api";
 import styles from "./DocumentCategoryCard.module.css";
 
 function statusFor(grant) {
@@ -27,7 +28,7 @@ export default function DocumentCategoryCard({ roomId, request, grant, isOwner, 
     formData.append("expiresAt", new Date(expiresAt).toISOString());
 
     try {
-      const res = await fetch(`/api/rooms/${roomId}/requests/${request.publicId}/upload`, {
+      const res = await fetch(`${API_URL}/api/rooms/${roomId}/requests/${request.publicId}/upload`, {
         method: "POST",
         credentials: "include",
         body: formData, 
@@ -46,8 +47,8 @@ export default function DocumentCategoryCard({ roomId, request, grant, isOwner, 
     onChange();
   };
 
-  const handleView = () => window.open(`/api/rooms/${roomId}/grants/${grant.publicId}/download?mode=inline`, "_blank");
-  const handleDownload = () => window.open(`/api/rooms/${roomId}/grants/${grant.publicId}/download`, "_blank");
+  const handleView = () => window.open(`${API_URL}/api/rooms/${roomId}/grants/${grant.publicId}/download?mode=inline`, "_blank");
+  const handleDownload = () => window.open(`${API_URL}/api/rooms/${roomId}/grants/${grant.publicId}/download`, "_blank");
 
   return (
     <div className={styles.card}>

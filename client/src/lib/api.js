@@ -1,9 +1,9 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
 async function request(path, options = {}) {
-  const res = await fetch(`/api${path}`, {
+  const res = await fetch(`${API_URL}/api${path}`, {   // was: `/api${path}`
     ...options,
-    credentials: "include", 
+    credentials: "include",
     headers: { "Content-Type": "application/json", ...options.headers },
   });
   if (!res.ok) {
@@ -19,14 +19,5 @@ export const api = {
   patch: (path, body) => request(path, { method: "PATCH", body: JSON.stringify(body) }),
 };
 
-export async function getSession() {
-  try {
-    const res = await fetch(`${API_URL}/auth/me`, { credentials: "include" });
-    if (!res.ok) return null;
-    return res.json();
-  } catch {
-    return null;
-  }
-}
-
-export const loginUrl = `${API_URL}/auth/login`; 
+export const loginUrl = `${API_URL}/auth/login`;
+export { API_URL };
