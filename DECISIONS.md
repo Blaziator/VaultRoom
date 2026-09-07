@@ -9,7 +9,9 @@ know the owner's account email in advance), file upload/view/download/revoke, a 
 timeline, and automated tests for unauthorized and expired/revoked access.
 
 Left out: magic-byte file-type validation, and a dedicated bulk/multi-owner collection flow
-(explicitly out of scope — see "Where this could go next" in the problem statement itself).
+(explicitly out of scope — see "Where this could go next" in the problem statement itself), and
+a frontend control for archiving a claimed room (the backend route exists and works, but no
+button calls it in the current UI).
 
 ## Architecture
 
