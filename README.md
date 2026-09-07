@@ -34,9 +34,9 @@ or download those documents until the owner revokes access or the expiry passes.
 
 - **Challenge ID:** `safer-document-room`
 - **Contributor:** Bhavya Kumawat
-- **Live demo:** Add URL
-- **Final commit:** Add the full 40-character SHA at submission time
-- **Time spent:** Add estimate
+- **Live demo:** [VaultRoom](https://vault-room-seven.vercel.app/)
+- **Final commit:** 6794447812a01fe8da61bae57aeb02de2c8a7dcf
+- **Time spent:** 6 hours
 - **License:** MIT
 
 ## Start here
@@ -61,11 +61,12 @@ the remaining template placeholders and records machine-readable attribution in
 ## Run locally
 
 ```bash
-npm run dev
+cd server && npm install && npm run dev
+cd client && npm install && npm run dev
 ```
+Requires `.env` files in both `server/` and `client/` — see `.env.example`.
 
-Open `http://localhost:8080`. Replace the starter page with your application or
-keep its branded footer and metadata when adapting it to another framework.
+The client runs at `http://localhost:5173`, the server at `http://localhost:3000`.
 
 ## What works
 
