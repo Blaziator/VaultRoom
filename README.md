@@ -35,7 +35,6 @@ or download those documents until the owner revokes access or the expiry passes.
 - **Challenge ID:** `safer-document-room`
 - **Contributor:** Bhavya Kumawat
 - **Live demo:** [VaultRoom](https://vault-room-seven.vercel.app/)
-- **Demo Video:** [Demo Video](https://drive.google.com/file/d/1acmZVd6fzCeOtSv9Yro69-t__IwTadhf/view?usp=sharing)
 - **Final commit:** 6794447812a01fe8da61bae57aeb02de2c8a7dcf
 - **Time spent:** 6 hours
 - **License:** MIT
